@@ -11,3 +11,5 @@ export interface ProductsResponse {
   skip: number;
   limit: number;
 }
+
+export type SortOrder = 'asc' | 'desc';

@@ -1,7 +1,7 @@
 import { CurrencyPipe } from '@angular/common';
 import { Component, computed, inject, signal } from '@angular/core';
 import { ProductService } from './product.service';
-import { Product } from './product.model';
+import { Product, SortOrder } from './product.model';
 
 const PAGE_SIZE = 10;
 
@@ -17,6 +17,7 @@ export class ProductList {
   protected readonly products = signal<Product[]>([]);
   protected readonly total = signal(0);
   protected readonly page = signal(1);
+  protected readonly sortOrder = signal<SortOrder | null>(null);
   protected readonly loading = signal(false);
   protected readonly error = signal<string | null>(null);
 
@@ -32,10 +33,16 @@ export class ProductList {
     this.load();
   }
 
+  protected onSortChange(value: string): void {
+    this.sortOrder.set(value === 'asc' || value === 'desc' ? value : null);
+    this.page.set(1);
+    this.load();
+  }
+
   protected load(): void {
     this.loading.set(true);
     this.error.set(null);
-    this.productService.getProducts(PAGE_SIZE, (this.page() - 1) * PAGE_SIZE).subscribe({
+    this.productService.getProducts(PAGE_SIZE, (this.page() - 1) * PAGE_SIZE, this.sortOrder()).subscribe({
       next: (res) => {
         this.products.set(res.products);
         this.total.set(res.total);
@@ -48,3 +55,4 @@ export class ProductList {
     });
   }
 }
+

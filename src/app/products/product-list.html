@@ -1,5 +1,14 @@
 <h1>Products</h1>
 
+<label class="sort">
+  Sort by price
+  <select [value]="sortOrder() ?? ''" (change)="onSortChange($any($event.target).value)">
+    <option value="">Default</option>
+    <option value="asc">Low to high</option>
+    <option value="desc">High to low</option>
+  </select>
+</label>
+
 @if (loading()) {
   <p class="status" role="status">Loading products...</p>
 } @else if (error()) {
@@ -24,3 +33,4 @@
     <button type="button" (click)="goTo(page() + 1)" [disabled]="page() === totalPages()">Next</button>
   </nav>
 }
+
