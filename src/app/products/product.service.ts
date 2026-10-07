@@ -1,13 +1,21 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ProductsResponse, SortOrder } from './product.model';
+import { ProductDetails, ProductUpdate, ProductsResponse, SortOrder } from './product.model';
 
 const API_URL = 'https://dummyjson.com/products';
 
 @Injectable({ providedIn: 'root' })
 export class ProductService {
   private readonly http = inject(HttpClient);
+
+  getProduct(id: number): Observable<ProductDetails> {
+    return this.http.get<ProductDetails>(`${API_URL}/${id}`);
+  }
+
+  updateProduct(id: number, changes: ProductUpdate): Observable<ProductDetails> {
+    return this.http.put<ProductDetails>(`${API_URL}/${id}`, changes);
+  }
 
   getProducts(limit: number, skip: number, order: SortOrder | null): Observable<ProductsResponse> {
     let params = new HttpParams()

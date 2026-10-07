@@ -1,0 +1,49 @@
+<a routerLink="/products">&larr; Back to products</a>
+<h1>Product details</h1>
+
+@if (loading()) {
+  <p role="status">Loading product...</p>
+} @else {
+  @if (error()) {
+    <p class="error" role="alert">{{ error() }}</p>
+  }
+
+  <form [formGroup]="form" (ngSubmit)="save()" novalidate>
+    <label>
+      Title
+      <input type="text" formControlName="title" />
+    </label>
+    @if (form.controls.title.touched && form.controls.title.errors; as errors) {
+      <p class="error">
+        @if (errors['required']) { Title is required. } @else { Title must be at most 100 characters. }
+      </p>
+    }
+
+    <label>
+      Description
+      <textarea rows="4" formControlName="description"></textarea>
+    </label>
+    @if (form.controls.description.touched && form.controls.description.errors) {
+      <p class="error">Description is required.</p>
+    }
+
+    <label>
+      Price
+      <input type="number" step="0.01" formControlName="price" />
+    </label>
+    @if (form.controls.price.touched && form.controls.price.errors; as errors) {
+      <p class="error">
+        @if (errors['required']) { Price must be a number. } @else { Price must be greater than 0. }
+      </p>
+    }
+
+    <div class="actions">
+      @if (editing()) {
+        <button type="submit" [disabled]="saving()">{{ saving() ? 'Saving...' : 'Save' }}</button>
+        <button type="button" (click)="cancel()" [disabled]="saving()">Cancel</button>
+      } @else {
+        <button type="button" (click)="edit()">Edit</button>
+      }
+    </div>
+  </form>
+}

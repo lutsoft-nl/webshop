@@ -5,6 +5,12 @@ export interface Product {
   thumbnail: string;
 }
 
+export interface ProductDetails extends Product {
+  description: string;
+}
+
+export type ProductUpdate = Pick<ProductDetails, 'title' | 'description' | 'price'>;
+
 export interface ProductsResponse {
   products: Product[];
   total: number;

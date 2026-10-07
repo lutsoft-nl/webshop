@@ -1,5 +1,6 @@
 import { CurrencyPipe } from '@angular/common';
 import { Component, computed, inject, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { ProductService } from './product.service';
 import { Product, SortOrder } from './product.model';
 
@@ -7,7 +8,7 @@ const PAGE_SIZE = 10;
 
 @Component({
   selector: 'app-product-list',
-  imports: [CurrencyPipe],
+  imports: [CurrencyPipe, RouterLink],
   templateUrl: './product-list.html',
   styleUrl: './product-list.css',
 })
