@@ -8,6 +8,12 @@
   min-width: 11rem;
 }
 
+@media (max-width: 575.98px) {
+  .form-select {
+    min-width: 0;
+  }
+}
+
 @media (min-width: 576px) {
   .product-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
