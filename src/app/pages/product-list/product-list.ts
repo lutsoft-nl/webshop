@@ -1,8 +1,8 @@
 import { CurrencyPipe } from '@angular/common';
 import { Component, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ProductService } from './product.service';
-import { Product, SortOrder } from './product.model';
+import { ProductService } from '../../products/product.service';
+import { Product, SortOrder } from '../../products/product.model';
 
 const PAGE_SIZE = 10;
 

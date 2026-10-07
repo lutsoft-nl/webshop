@@ -1,0 +1,12 @@
+<header class="navbar navbar-expand bg-white border-bottom">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/products">Everyday products</a>
+    <nav class="d-flex align-items-center gap-3" aria-label="Main navigation">
+      @if (auth.isLoggedIn()) {
+        <button class="btn btn-outline-secondary btn-sm" type="button" (click)="auth.logout()">Log out</button>
+      } @else {
+        <a class="btn btn-primary btn-sm" routerLink="/login">Admin login</a>
+      }
+    </nav>
+  </div>
+</header>

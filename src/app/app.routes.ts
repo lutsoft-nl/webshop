@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
-import { Login } from './auth/login';
-import { ProductDetails } from './products/product-details';
-import { ProductList } from './products/product-list';
+import { Login } from './auth/login/login';
+import { ProductDetails } from './pages/product-details/product-details';
+import { ProductList } from './pages/product-list/product-list';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'products' },

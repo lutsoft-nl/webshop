@@ -1,9 +1,9 @@
 import { Component, OnInit, inject, input, numberAttribute, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { AuthService } from '../auth/auth.service';
-import { ProductUpdate } from './product.model';
-import { ProductService } from './product.service';
+import { AuthService } from '../../auth/auth.service';
+import { ProductUpdate } from '../../products/product.model';
+import { ProductService } from '../../products/product.service';
 
 @Component({
   selector: 'app-product-details',
