@@ -1,10 +1,27 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { RouterLink, RouterOutlet } from '@angular/router';
+import { AuthService } from './auth/auth.service';
 
 @Component({
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, RouterLink],
   selector: 'app-root',
-  template: '<main><router-outlet /></main>',
-  styles: 'main { max-width: 960px; margin: 0 auto; padding: 1rem; font-family: sans-serif; }',
+  template: `
+    <main>
+      <nav>
+        @if (auth.isLoggedIn()) {
+          <button type="button" (click)="auth.logout()">Log out</button>
+        } @else {
+          <a routerLink="/login">Admin login</a>
+        }
+      </nav>
+      <router-outlet />
+    </main>
+  `,
+  styles: `
+    main { max-width: 960px; margin: 0 auto; padding: 1rem; font-family: sans-serif; }
+    nav { text-align: right; }
+  `,
 })
-export class App {}
+export class App {
+  protected readonly auth = inject(AuthService);
+}

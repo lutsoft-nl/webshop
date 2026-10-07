@@ -41,7 +41,7 @@
       @if (editing()) {
         <button type="submit" [disabled]="saving()">{{ saving() ? 'Saving...' : 'Save' }}</button>
         <button type="button" (click)="cancel()" [disabled]="saving()">Cancel</button>
-      } @else {
+      } @else if (auth.isLoggedIn()) {
         <button type="button" (click)="edit()">Edit</button>
       }
     </div>

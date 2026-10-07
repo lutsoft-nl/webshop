@@ -1,6 +1,7 @@
 import { Component, OnInit, inject, input, numberAttribute, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../auth/auth.service';
 import { ProductUpdate } from './product.model';
 import { ProductService } from './product.service';
 
@@ -12,6 +13,7 @@ import { ProductService } from './product.service';
 })
 export class ProductDetails implements OnInit {
   private readonly productService = inject(ProductService);
+  protected readonly auth = inject(AuthService);
 
   // Bound from the :id route param.
   readonly id = input.required({ transform: numberAttribute });
