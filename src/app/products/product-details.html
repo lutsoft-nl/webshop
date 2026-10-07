@@ -1,49 +1,73 @@
-<a routerLink="/products">&larr; Back to products</a>
-<h1>Product details</h1>
+<a class="link-secondary text-decoration-none" routerLink="/products">&larr; Back to products</a>
+<div class="row justify-content-center mt-3">
+  <div class="col-12 col-xl-10">
+    <section class="bg-white border rounded-3 p-3 p-sm-4 p-lg-5">
+      @if (loading()) {
+        <div class="d-flex align-items-center gap-2 py-4 text-secondary" role="status">
+          <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+          <span>Loading product...</span>
+        </div>
+      } @else {
+        @if (error()) {
+          <div class="alert alert-danger" role="alert">{{ error() }}</div>
+        }
 
-@if (loading()) {
-  <p role="status">Loading product...</p>
-} @else {
-  @if (error()) {
-    <p class="error" role="alert">{{ error() }}</p>
-  }
+        <div class="row g-4 g-lg-5 align-items-start">
+          <div class="col-12 col-md-5">
+            @if (imageUrl(); as image) {
+              <div class="product-detail-image-wrap">
+                <img class="product-detail-image" [src]="image" [alt]="form.controls.title.value" />
+              </div>
+            }
+          </div>
+          <div class="col-12 col-md-7">
+            <p class="text-uppercase small fw-semibold text-secondary mb-1">Product management</p>
+            <h1 class="h2 mb-4">Product details</h1>
 
-  <form [formGroup]="form" (ngSubmit)="save()" novalidate>
-    <label>
-      Title
-      <input type="text" formControlName="title" />
-    </label>
-    @if (form.controls.title.touched && form.controls.title.errors; as errors) {
-      <p class="error">
-        @if (errors['required']) { Title is required. } @else { Title must be at most 100 characters. }
-      </p>
-    }
+            <form [formGroup]="form" (ngSubmit)="save()" novalidate>
+              <div class="mb-3">
+                <label class="form-label" for="product-title">Title</label>
+                <input id="product-title" class="form-control" type="text" formControlName="title" />
+                @if (form.controls.title.touched && form.controls.title.errors; as errors) {
+                  <div class="invalid-feedback d-block">
+                    @if (errors['required']) { Title is required. } @else { Title must be at most 100 characters. }
+                  </div>
+                }
+              </div>
 
-    <label>
-      Description
-      <textarea rows="4" formControlName="description"></textarea>
-    </label>
-    @if (form.controls.description.touched && form.controls.description.errors) {
-      <p class="error">Description is required.</p>
-    }
+              <div class="mb-3">
+                <label class="form-label" for="product-description">Description</label>
+                <textarea id="product-description" class="form-control" rows="5" formControlName="description"></textarea>
+                @if (form.controls.description.touched && form.controls.description.errors) {
+                  <div class="invalid-feedback d-block">Description is required.</div>
+                }
+              </div>
 
-    <label>
-      Price
-      <input type="number" step="0.01" formControlName="price" />
-    </label>
-    @if (form.controls.price.touched && form.controls.price.errors; as errors) {
-      <p class="error">
-        @if (errors['required']) { Price must be a number. } @else { Price must be greater than 0. }
-      </p>
-    }
+              <div class="mb-4">
+                <label class="form-label" for="product-price">Price</label>
+                <div class="input-group">
+                  <span class="input-group-text" aria-hidden="true">$</span>
+                  <input id="product-price" class="form-control" type="number" step="0.01" formControlName="price" />
+                </div>
+                @if (form.controls.price.touched && form.controls.price.errors; as errors) {
+                  <div class="invalid-feedback d-block">
+                    @if (errors['required']) { Price must be a number. } @else { Price must be greater than 0. }
+                  </div>
+                }
+              </div>
 
-    <div class="actions">
-      @if (editing()) {
-        <button type="submit" [disabled]="saving()">{{ saving() ? 'Saving...' : 'Save' }}</button>
-        <button type="button" (click)="cancel()" [disabled]="saving()">Cancel</button>
-      } @else if (auth.isLoggedIn()) {
-        <button type="button" (click)="edit()">Edit</button>
+              <div class="d-flex flex-wrap gap-2">
+                @if (editing()) {
+                  <button class="btn btn-primary" type="submit" [disabled]="saving()">{{ saving() ? 'Saving...' : 'Save changes' }}</button>
+                  <button class="btn btn-outline-secondary" type="button" (click)="cancel()" [disabled]="saving()">Cancel</button>
+                } @else if (auth.isLoggedIn()) {
+                  <button class="btn btn-primary" type="button" (click)="edit()">Edit product</button>
+                }
+              </div>
+            </form>
+          </div>
+        </div>
       }
-    </div>
-  </form>
-}
+    </section>
+  </div>
+</div>

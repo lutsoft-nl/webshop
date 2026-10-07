@@ -7,27 +7,34 @@ import { AuthService } from './auth.service';
   selector: 'app-login',
   imports: [ReactiveFormsModule, RouterLink],
   template: `
-    <a routerLink="/products">&larr; Back to products</a>
-    <h1>Admin login</h1>
-    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
-      <label>
-        Username
-        <input type="text" formControlName="username" autocomplete="username" />
-      </label>
-      <label>
-        Password
-        <input type="password" formControlName="password" autocomplete="current-password" />
-      </label>
-      @if (error()) {
-        <p class="error" role="alert">{{ error() }}</p>
-      }
-      <button type="submit" [disabled]="loading()">{{ loading() ? 'Logging in...' : 'Log in' }}</button>
-    </form>
-  `,
-  styles: `
-    form { display: flex; flex-direction: column; gap: 0.75rem; max-width: 20rem; }
-    label { display: flex; flex-direction: column; gap: 0.25rem; }
-    .error { color: #b00020; }
+    <a class="link-secondary text-decoration-none" routerLink="/products">&larr; Back to shop</a>
+    <div class="row justify-content-center mt-3">
+      <div class="col-12 col-sm-10 col-md-7 col-lg-5 col-xl-4">
+        <section class="bg-white border rounded-3 p-4 p-sm-5">
+          <p class="text-uppercase small fw-semibold text-secondary mb-1">Store administration</p>
+          <h1 class="h2 mb-4">Admin login</h1>
+          <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+            <div class="mb-3">
+              <label class="form-label" for="username">Username</label>
+              <input id="username" class="form-control" type="text" formControlName="username" autocomplete="username" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="password">Password</label>
+              <input id="password" class="form-control" type="password" formControlName="password" autocomplete="current-password" />
+            </div>
+            @if (error()) {
+              <div class="alert alert-danger py-2" role="alert">{{ error() }}</div>
+            }
+            <button class="btn btn-primary w-100" type="submit" [disabled]="loading()">
+              @if (loading()) {
+                <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+              }
+              {{ loading() ? 'Logging in...' : 'Log in' }}
+            </button>
+          </form>
+        </section>
+      </div>
+    </div>
   `,
 })
 export class Login {

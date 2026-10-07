@@ -22,6 +22,7 @@ export class ProductDetails implements OnInit {
   protected readonly saving = signal(false);
   protected readonly editing = signal(false);
   protected readonly error = signal<string | null>(null);
+  protected readonly imageUrl = signal<string | null>(null);
 
   protected readonly form = inject(FormBuilder).nonNullable.group({
     title: ['', [Validators.required, Validators.maxLength(100)]],
@@ -39,7 +40,9 @@ export class ProductDetails implements OnInit {
     this.loading.set(true);
     this.error.set(null);
     this.productService.getProduct(this.id()).subscribe({
-      next: ({ title, description, price }) => {
+      next: (product) => {
+        this.imageUrl.set(product.thumbnail);
+        const { title, description, price } = product;
         this.showSaved({ title, description, price });
         this.loading.set(false);
       },

@@ -1,49 +1,34 @@
-.grid {
+.product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 1rem;
-  list-style: none;
-  padding: 0;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.75rem;
 }
 
-.card {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 1rem;
-  text-align: center;
+.form-select {
+  min-width: 11rem;
 }
 
-.card img {
-  max-width: 100%;
-  height: auto;
+@media (min-width: 576px) {
+  .product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
-.card h2 {
-  font-size: 1rem;
+@media (min-width: 768px) {
+  .product-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
 }
 
-.price {
-  font-weight: bold;
+@media (min-width: 1200px) {
+  .product-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 }
 
-.status {
-  text-align: center;
-  padding: 2rem;
-}
-
-.error {
-  color: #b00020;
-}
-
-.pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-  margin: 1.5rem 0;
-}
-
-.sort {
-  display: block;
-  margin-bottom: 1rem;
+@media (min-width: 1400px) {
+  .product-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
 }
